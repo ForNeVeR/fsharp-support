@@ -15,6 +15,7 @@
     <Compile Include="src\CodeCompletion\FSharpLookupItem.fs" />
     <Compile Include="src\CodeCompletion\FSharpCompletionProviders.fs" />
     <Compile Include="src\CodeStructure\FSharpCodeStructure.fs" />
+    <Compile Include="src\TypeHints\TypeHintsAdornmentProvider.fs" />
     <Compile Include="src\Daemon\Highlightings\ErrorHighlightings.fs" />
     <Compile Include="src\Daemon\ContextHighlighters\FSharpMatchingBraceContextHighlighter.fs" />
     <Compile Include="src\Daemon\Stages\FSharpIdentifierTooltipProvider.fs" />
@@ -25,6 +26,7 @@
     <Compile Include="src\Daemon\Stages\SyntaxErrorsStage.fs" />
     <Compile Include="src\Daemon\Stages\TypeCheckErrorsStage.fs" />
     <Compile Include="src\Daemon\Stages\UnusedOpensStage.fs" />
+    <Compile Include="src\Daemon\Stages\TypeHintsStage.fs" />
     <Compile Include="src\Daemon\UsageChecking\FSharpUsageCheckingService.fs" />
     <Compile Include="src\Comment\FSharpBlockCommentActionProvider.fs" />
     <Compile Include="src\Comment\FSharpLineCommentActionProvider.fs" />
