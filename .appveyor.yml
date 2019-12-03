@@ -1,4 +1,18 @@
 image: Visual Studio 2019
+environment:
+  # Fun!
+  # We need the FSharp.Core package's xmldocs to be present in the NuGet cache.
+  #
+  # When the environment variable NUGET_XMLDOC_MODE is set to `skip`, (e.g.
+  # nanoserver docker images from MS), NuGet won't extract xmldocs from the
+  # nupkg. Just setting the env var on restore is not enough, because we may
+  # already have a package without the .xml in cache, and NuGet only checks the
+  # marker file.
+  #
+  # Using --force also doesn't help. So the workaround is as follows:
+  # 1) delete the folder containing the package, thus forcing the redownload
+  # 2) for the time of restore, force NUGET_XMLDOC_MODE to something other than `skip`
+  NUGET_XMLDOC_MODE: please
 
 install:
   - cinst openjdk8 --version 8.232.9
@@ -10,6 +24,7 @@ cache:
   - C:/Users/appveyor/.nuget
 
 before_build:
+  - del /s /q %USERPROFILE%\.nuget\packages\fsharp.core # see the explanation below
   - cd %APPVEYOR_BUILD_FOLDER%/rider-fsharp && gradlew prepare
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%/ReSharper.FSharp && dotnet build
