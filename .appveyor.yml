@@ -1,0 +1,20 @@
+image: Visual Studio 2019
+
+install:
+  - cinst openjdk8 --version 8.232.9
+cache:
+  - C:/ProgramData/chocolatey/bin -> appveyor.yml
+  - C:/ProgramData/chocolatey/lib -> appveyor.yml
+  - C:/Users/appveyor/.gradle/wrapper
+  - C:/Users/appveyor/.gradle/caches
+  - C:/Users/appveyor/.nuget
+
+before_build:
+  - cd %APPVEYOR_BUILD_FOLDER%/rider-fsharp && gradlew prepare
+build_script:
+  - cd %APPVEYOR_BUILD_FOLDER%/ReSharper.FSharp && dotnet build
+  - cd %APPVEYOR_BUILD_FOLDER%/rider-fsharp && gradlew buildPlugin
+
+artifacts:
+  - path: rider-fsharp/build/distributions/*.zip
+    name: Distribution
